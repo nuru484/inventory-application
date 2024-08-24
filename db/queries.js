@@ -1,5 +1,6 @@
 const pool = require('./pool');
 
+// PRODUCT QUERIES
 async function getAllProducts() {
   try {
     const { rows } = await pool.query('SELECT * FROM products');
@@ -70,7 +71,7 @@ async function updateProduct(
   }
 }
 
-async function getProducts(name, description) {
+async function getProductBySearch(name, description) {
   try {
     const query =
       'SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $2';
@@ -99,6 +100,41 @@ async function deleteAllProducts() {
     console.error('Error deleting all products', err.stack);
   }
 }
+
+// SUPPLIER QUERIES
+const getAllSuppliers = async () => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM suppliers');
+    return rows;
+  } catch (error) {
+    return `Error fetching suppliers: ${error}`;
+  }
+};
+
+const getSupplierById = async (id) => {
+  try {
+    const { rows } = await pool.query(
+      'SELECT * FROM suppliers WHERE supplier_id = $1',
+      [id]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error('Error fetching product', error.stack);
+    throw error;
+  }
+};
+
+const getSupplierBySearch = async (supplierName) => {
+  try {
+    const query = `SELECT * FROM suppliers WHERE supplier_name ILIKE $1`;
+    const values = [`%${supplierName}%`];
+    const { rows } = await pool.query(query, values);
+    return rows;
+  } catch (error) {
+    console.error(`Error fetching supplier: ${error.stack}`);
+    throw error;
+  }
+};
 
 async function addSupplier(supplierName, contactInfo) {
   try {
@@ -135,6 +171,29 @@ async function deleteSupplierById(supplierId) {
   }
 }
 
+// CATEGORY QUERIES
+const getAllCategories = async () => {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM categories`);
+    return rows;
+  } catch (error) {
+    console.error(`Error fetching categories: ${error.stack}`);
+    throw error;
+  }
+};
+
+const getCategoryBySearch = async (categoryName) => {
+  try {
+    const query = `SELECT FROM categories WHERE category_name ILIKE $1`;
+    const values = [`%${categoryName}%`];
+    const { rows } = await pool.query(query, values);
+    return rows;
+  } catch (error) {
+    console.error(`Error fetching supplier: ${error.stack}`);
+    throw error;
+  }
+};
+
 async function addCategory(categoryName) {
   try {
     const query = 'INSERT INTO categories (category_name) VALUES ($1)';
@@ -170,16 +229,26 @@ async function deleteCategoryById(categoryId) {
 }
 
 module.exports = {
+  // product queries
   getAllProducts,
   getProductById,
   addProduct,
   updateProduct,
-  getProducts,
+  getProductBySearch,
   deleteProductById,
   deleteAllProducts,
+
+  // suppliers queries
+  getAllSuppliers,
+  getSupplierById,
+  getSupplierBySearch,
   addSupplier,
   updateSupplier,
   deleteSupplierById,
+
+  // Category queries
+  getAllCategories,
+  getCategoryBySearch,
   addCategory,
   updateCategory,
   deleteCategoryById,

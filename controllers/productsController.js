@@ -3,7 +3,7 @@ const db = require('../db/queries');
 const productsGet = async (req, res) => {
   try {
     const products = await db.getAllProducts();
-    res.render('index', { title: 'Products', products: products });
+    res.render('products', { title: 'Products', products: products });
   } catch (error) {
     console.error('Error fetching products', error);
     res.status(500).send('Internal Server Error');
@@ -14,12 +14,10 @@ const addProductGet = (req, res) => {
   res.render('productForm', { title: 'Product Form' });
 };
 
-const addProductsPost = async (req, res) => {
+const addProductPost = async (req, res) => {
   try {
     const { name, description, price, quantity, categoryId, supplierId } =
       req.body;
-
-    console.log(name, description);
 
     await db.addProduct(
       name,
@@ -91,7 +89,7 @@ const deleteProductByIdPost = async (req, res) => {
 module.exports = {
   productsGet,
   addProductGet,
-  addProductsPost,
+  addProductPost,
   updateProductGet,
   updateProductsPost,
   deleteProductByIdPost,
