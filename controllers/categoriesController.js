@@ -13,4 +13,8 @@ const categoriesGet = async (req, res) => {
   }
 };
 
-module.exports = { categoriesGet };
+const addCategoriesGet = (req, res) => {
+  res.render('addCategory', { title: 'Add Category Form' });
+};
+
+module.exports = { categoriesGet, addCategoriesGet };
