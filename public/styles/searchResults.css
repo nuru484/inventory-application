@@ -1,0 +1,29 @@
+/* Search results styling */
+.search-results {
+  max-height: 70%;
+  overflow-y: auto;
+  padding: 20px;
+  margin: 40px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.search-results h2 {
+  margin: 10px 0 20px 0;
+}
+
+.search-results ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.search-results li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd; /* Add border between items */
+}
+
+.search-results li:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
