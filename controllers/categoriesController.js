@@ -14,7 +14,7 @@ const categoriesGet = async (req, res) => {
 };
 
 const addCategoryGet = (req, res) => {
-  res.render('addCategory', { title: 'Add Category Form' });
+  res.render('addCategoryForm', { title: 'Add Category Form' });
 };
 
 const addCategoryPost = async (req, res) => {

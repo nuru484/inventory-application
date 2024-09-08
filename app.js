@@ -6,6 +6,7 @@ const path = require('path');
 const homepageRouter = require('./routes/homepageRoute');
 const productsRouter = require('./routes/productsRoutes');
 const categoriesRouter = require('./routes/categoriesRoutes');
+const suppliersRouter = require('./routes/suppliersRoutes');
 const searchRouter = require('./routes/searchRoute');
 
 PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use('/', homepageRouter);
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
+app.use('/suppliers', suppliersRouter);
 app.use('/search', searchRouter);
 
 app.listen(PORT, () => {

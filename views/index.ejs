@@ -10,10 +10,44 @@
     <div class="main-container">
       <nav class="nav-bar">
         <div>Grocery Store</div>
-        <ul>
+
+        <ul id="menu-list">
           <li><a href="/">Dashboard</a></li>
-          <li>Categories</li>
-          <li>Products</li>
+          <li class="menu-item" data-target="products-list">
+            Products
+            <ul id="products-list" class="hidden">
+              <% if (products.length > 0) { %> <%
+              products.forEach(function(product) { %>
+              <li><%= product.name %></li>
+              <% }) %> <% } else { %>
+              <li>No products available.</li>
+              <% } %>
+            </ul>
+          </li>
+
+          <li class="menu-item" data-target="categories-list">
+            Categories
+            <ul id="categories-list" class="hidden">
+              <% if (categories.length > 0) { %> <%
+              categories.forEach(function(category) { %>
+              <li><%= category.category_name %></li>
+              <% }) %> <% } else { %>
+              <li>No categories available.</li>
+              <% } %>
+            </ul>
+          </li>
+
+          <li class="menu-item" data-target="suppliers-list">
+            Suppliers
+            <ul id="suppliers-list" class="hidden">
+              <% if (suppliers.length > 0) { %> <%
+              suppliers.forEach(function(supplier) { %>
+              <li><%= supplier.supplier_name %></li>
+              <% }) %> <% } else { %>
+              <li>No suppliers available.</li>
+              <% } %>
+            </ul>
+          </li>
         </ul>
       </nav>
 
@@ -36,6 +70,9 @@
             </div>
             <div class="add-product">
               <a href="/categories/add-category">Add Category</a>
+            </div>
+            <div class="add-product">
+              <a href="/suppliers/add-supplier">Add supplier</a>
             </div>
           </div>
         </div>
@@ -73,5 +110,18 @@
         </div>
       </main>
     </div>
+
+    <script>
+      document
+        .getElementById('menu-list')
+        .addEventListener('click', function (event) {
+          if (event.target.classList.contains('menu-item')) {
+            const targetId = event.target.getAttribute('data-target');
+
+            const targetList = document.getElementById(targetId);
+            targetList.classList.toggle('hidden');
+          }
+        });
+    </script>
   </body>
 </html>

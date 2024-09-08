@@ -13,8 +13,19 @@
         <div>Grocery Store</div>
         <ul>
           <li><a href="/">Dashboard</a></li>
+          <li id="products-menu">
+            Products
+            <ul id="products-list" class="hidden">
+              <% if (products.length > 0) { %> <%
+              products.forEach(function(product) { %>
+              <li><%= product.name %></li>
+              <% }) %> <% } else { %>
+              <li>No products available.</li>
+              <% } %>
+            </ul>
+          </li>
           <li>Categories</li>
-          <li>Products</li>
+          <li>Suppliers</li>
         </ul>
       </nav>
 
@@ -38,10 +49,12 @@
             <div class="add-product">
               <a href="/categories/add-category">Add Category</a>
             </div>
+            <div class="add-product">
+              <a href="/suppliers/add-supplier">Add supplier</a>
+            </div>
           </div>
         </div>
 
-        <!-- Render search results here -->
         <div class="search-results">
           <% if (products.length > 0) { %>
           <h2>Products:</h2>
@@ -65,5 +78,18 @@
         </div>
       </main>
     </div>
+
+    <script>
+      document
+        .getElementById('products-menu')
+        .addEventListener('click', function () {
+          const productsList = document.getElementById('products-list');
+          if (productsList.classList.contains('hidden')) {
+            productsList.classList.remove('hidden');
+          } else {
+            productsList.classList.add('hidden');
+          }
+        });
+    </script>
   </body>
 </html>

@@ -14,16 +14,16 @@
 }
 
 .search-results ul {
-  list-style: none; /* Remove default list styling */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .search-results li {
   padding: 5px 0;
-  border-bottom: 1px solid #ddd; /* Add border between items */
+  border-bottom: 1px solid #ddd;
 }
 
 .search-results li:last-child {
-  border-bottom: none; /* Remove border from the last item */
+  border-bottom: none;
 }

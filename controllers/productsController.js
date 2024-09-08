@@ -1,15 +1,5 @@
 const db = require('../db/queries');
 
-const productsGet = async (req, res) => {
-  try {
-    const products = await db.getAllProducts();
-    res.render('products', { title: 'Products', products: products });
-  } catch (error) {
-    console.error('Error fetching products', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
-
 const addProductGet = (req, res) => {
   res.render('productForm', { title: 'Product Form' });
 };
@@ -34,26 +24,6 @@ const addProductPost = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
-
-// const productSearchGet = async (req, res) => {
-//   try {
-//     const searchQuery = req.query.queryProduct;
-//     const results = await db.getProductBySearch(searchQuery);
-
-//     console.log(searchQuery);
-
-//     const products = await db.getAllProducts();
-
-//     res.render('searchResults', {
-//       title: 'Search Results',
-//       results: results,
-//       products: products,
-//     });
-//   } catch (error) {
-//     console.error('Error during product search:', error);
-//     res.status(500).send('An error occurred while searching for products.');
-//   }
-// };
 
 const updateProductGet = async (req, res) => {
   try {
@@ -107,7 +77,6 @@ const deleteProductByIdPost = async (req, res) => {
 };
 
 module.exports = {
-  productsGet,
   addProductGet,
   addProductPost,
   updateProductGet,

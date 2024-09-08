@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Supplier</title>
+  </head>
+  <body>
+    <form action="/suppliers/add-supplier" method="POST">
+      <label for="supplierName">Supplier Name:</label>
+      <input type="text" name="supplierName" id="supplierName" required />
+      <br />
+
+      <label for="contactInfo">Contact Info:</label>
+      <textarea
+        name="contactInfo"
+        id="contactInfo"
+        rows="4"
+        required
+      ></textarea>
+      <br />
+
+      <button type="submit">Add Supplier</button>
+    </form>
+  </body>
+</html>
