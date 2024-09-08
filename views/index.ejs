@@ -3,71 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
     <title><%= title %></title>
   </head>
   <body>
-    <header class="header"><h1>Grocery Store</h1></header>
-    <nav class="nav">
-      <ul>
-        <li><a href="/">Dashboard</a></li>
-        <li>Categories</li>
-        <li>Products</li>
-      </ul>
-    </nav>
+    <div class="main-container">
+      <nav class="nav-bar">
+        <div>Grocery Store</div>
+        <ul>
+          <li><a href="/">Dashboard</a></li>
+          <li>Categories</li>
+          <li>Products</li>
+        </ul>
+      </nav>
 
-    <main class="product-overview">
-      <div>
-        <div class="search-container">
-          <form action="/products/products-search" method="GET">
-            <input
-              type="search"
-              name="queryProduct"
-              id="query-product"
-              placeholder="Search for a Product"
-            />
-            <button type="submit">Search</button>
-          </form>
+      <main class="product-overview">
+        <div>
+          <div class="search-container">
+            <form action="/products/products-search" method="GET">
+              <input
+                type="search"
+                name="queryProduct"
+                id="query-product"
+                placeholder="Search for a Product"
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <div class="add-product-container">
+            <a href="/products/add-product">Add product</a>
+          </div>
         </div>
+        <div class="product-details">
+          <h1>Dashboard</h1>
+          <div class="products-total">
+            <% if (products && products.length > 0) { %>
+            <div class="product-detail">
+              <p>Total Products:</p>
+              <p><%= products.length %></p>
+            </div>
 
-        <div class="add-product-container">
-          <a href="/products/add-product">Add product</a>
+            <% let totalProductsWorth = 0; let lowProduct = 0; let productsOut =
+            0; products.forEach(product => { totalProductsWorth += product.price
+            * product.quantity; if (product.quantity < 10) { lowProduct += 1; }
+            if (product.quantity === 0) { productsOut += 1; } }); %>
+
+            <div class="product-detail">
+              <p>Total Products Worth:</p>
+              <p><%= totalProductsWorth %></p>
+            </div>
+
+            <div class="product-detail">
+              <p>Products Low in Store:</p>
+              <p><%= lowProduct %></p>
+            </div>
+
+            <div class="product-detail">
+              <p>Products Out of Store:</p>
+              <p><%= productsOut %></p>
+            </div>
+
+            <% } else { %>
+            <p>No products available.</p>
+            <% } %>
+          </div>
         </div>
-      </div>
-      <div class="product-details">
-        <h1>Dashboard</h1>
-        <div class="products-total">
-          <% if (products && products.length > 0) { %>
-          <div class="product-detail">
-            <p>Total Products:</p>
-            <p><%= products.length %></p>
-          </div>
-
-          <% let totalProductsWorth = 0; let lowProduct = 0; let productsOut =
-          0; products.forEach(product => { totalProductsWorth += product.price *
-          product.quantity; if (product.quantity < 10) { lowProduct += 1; } if
-          (product.quantity === 0) { productsOut += 1; } }); %>
-
-          <div class="product-detail">
-            <p>Total Products Worth:</p>
-            <p><%= totalProductsWorth %></p>
-          </div>
-
-          <div class="product-detail">
-            <p>Products Low in Store:</p>
-            <p><%= lowProduct %></p>
-          </div>
-
-          <div class="product-detail">
-            <p>Products Out of Store:</p>
-            <p><%= productsOut %></p>
-          </div>
-
-          <% } else { %>
-          <p>No products available.</p>
-          <% } %>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"></footer>
+      </main>
+    </div>
   </body>
 </html>
