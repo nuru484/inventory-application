@@ -10,25 +10,32 @@
     <nav class="nav">
       <ul>
         <li><a href="/">Dashboard</a></li>
-        <li>Categories</li>
-        <li>Products</li>
+        <li><a href="/categories">Categories</a></li>
+        <li><a href="/products">All Products</a></li>
       </ul>
     </nav>
 
     <main class="product-overview">
       <div>
         <div class="search-container">
-          <form action="/products/products-search" method="GET">
-            <input
-              type="search"
-              name="queryProduct"
-              id="query-product"
-              placeholder="Search for a Product"
-            />
-            <button type="submit">Search</button>
-          </form>
+          <input
+            type="search"
+            name="query-product"
+            id="query-product"
+            placeholder="Search for a Product"
+          />
         </div>
-
+        <div>
+          <% if (results && results.length > 0) { %> <%
+          results.forEach(function(product) { %>
+          <div class="product-item">
+            <h2><%= product.name %></h2>
+            <p><%= product.description %></p>
+          </div>
+          <% }); %> <% } else { %>
+          <p>No products found.</p>
+          <% } %>
+        </div>
         <div class="add-product-container">
           <a href="/products/add-product">Add product</a>
         </div>
@@ -66,6 +73,10 @@
           <p>No products available.</p>
           <% } %>
         </div>
+      </div>
+      <div class="product-analytics">
+        <h1>Dashboard</h1>
+        Analytics
       </div>
     </main>
     <footer class="footer"></footer>

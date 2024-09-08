@@ -35,6 +35,25 @@ const addProductPost = async (req, res) => {
   }
 };
 
+const productSearchGet = async (req, res) => {
+  try {
+    const searchQuery = req.query.queryProduct;
+    const results = await db.getProductBySearch(searchQuery);
+
+    console.log(searchQuery);
+
+    const products = await db.getAllProducts();
+
+    res.render('searchResults', {
+      title: 'Search Results',
+      results: results,
+      products: products,
+    });
+  } catch (error) {
+    console.error('Error during product search:', error);
+    res.status(500).send('An error occurred while searching for products.');
+  }
+};
 const updateProductGet = async (req, res) => {
   try {
     const { id } = req.params;
@@ -90,6 +109,7 @@ module.exports = {
   productsGet,
   addProductGet,
   addProductPost,
+  productSearchGet,
   updateProductGet,
   updateProductsPost,
   deleteProductByIdPost,
