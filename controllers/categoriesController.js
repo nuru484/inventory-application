@@ -13,8 +13,21 @@ const categoriesGet = async (req, res) => {
   }
 };
 
-const addCategoriesGet = (req, res) => {
+const addCategoryGet = (req, res) => {
   res.render('addCategory', { title: 'Add Category Form' });
 };
 
-module.exports = { categoriesGet, addCategoriesGet };
+const addCategoryPost = async (req, res) => {
+  try {
+    const { categoryName } = req.body;
+
+    await db.addCategory(categoryName);
+
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error adding category', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+module.exports = { categoriesGet, addCategoryGet, addCategoryPost };
