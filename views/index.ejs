@@ -20,12 +20,12 @@
       <main class="dashboard">
         <div class="controls">
           <div class="search-container">
-            <form action="/products/products-search" method="GET">
+            <form action="/search/search-all" method="GET" id="search-form">
               <input
                 type="search"
-                name="queryProduct"
-                id="query-product"
-                placeholder="Search for a Product"
+                name="searchQuery"
+                id="searchQuery"
+                placeholder="Search for a Product, Category or Supplier"
               />
               <button type="submit">Search</button>
             </form>

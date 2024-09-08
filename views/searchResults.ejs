@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <div class="main-container">
+      <nav class="nav-bar">
+        <div>Grocery Store</div>
+        <ul>
+          <li><a href="/">Dashboard</a></li>
+          <li>Categories</li>
+          <li>Products</li>
+        </ul>
+      </nav>
+
+      <main class="dashboard">
+        <div class="controls">
+          <div class="search-container">
+            <form action="/search/search-all" method="GET">
+              <input
+                type="search"
+                name="searchQuery"
+                id="searchQuery"
+                placeholder="Search for a Product"
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="actions">
+            <div class="add-product">
+              <a href="/products/add-product">Add product</a>
+            </div>
+            <div class="add-product">
+              <a href="/categories/add-category">Add Category</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Render search results here -->
+        <div class="search-results">
+          <% if (products.length > 0) { %>
+          <h2>Products:</h2>
+          <ul>
+            <% products.forEach(product => { %>
+            <li><%= product.name %> - <%= product.description %></li>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <p>No products found.</p>
+          <% } %> <% if (categories.length > 0) { %>
+          <h2>Categories:</h2>
+          <ul>
+            <% categories.forEach(category => { %>
+            <li><%= category.category_name %></li>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <p>No categories found.</p>
+          <% } %>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

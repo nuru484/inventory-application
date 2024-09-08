@@ -30,4 +30,8 @@ const addCategoryPost = async (req, res) => {
   }
 };
 
-module.exports = { categoriesGet, addCategoryGet, addCategoryPost };
+module.exports = {
+  categoriesGet,
+  addCategoryGet,
+  addCategoryPost,
+};

@@ -71,8 +71,9 @@ async function updateProduct(
   }
 }
 
-async function getProductBySearch(name, description) {
+async function getProductBySearch(name = '', description = '') {
   try {
+    // Construct the query to search in both `name` and `description` fields
     const query =
       'SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $2';
     const values = [`%${name}%`, `%${description}%`];
@@ -80,6 +81,7 @@ async function getProductBySearch(name, description) {
     return rows;
   } catch (err) {
     console.error('Error executing search query', err.stack);
+    throw err;
   }
 }
 
@@ -182,14 +184,15 @@ const getAllCategories = async () => {
   }
 };
 
-const getCategoryBySearch = async (categoryName) => {
+const getCategoryBySearch = async (categoryName = '') => {
   try {
-    const query = `SELECT FROM categories WHERE category_name ILIKE $1`;
+    // Correct the query to use SELECT * to get all columns
+    const query = 'SELECT * FROM categories WHERE category_name ILIKE $1';
     const values = [`%${categoryName}%`];
     const { rows } = await pool.query(query, values);
     return rows;
   } catch (error) {
-    console.error(`Error fetching supplier: ${error.stack}`);
+    console.error(`Error fetching categories: ${error.stack}`);
     throw error;
   }
 };
