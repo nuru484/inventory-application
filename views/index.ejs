@@ -34,7 +34,11 @@
             <ul id="categories-list" class="hidden">
               <% if (categories.length > 0) { %> <%
               categories.forEach(function(category) { %>
-              <li><%= category.category_name %></li>
+              <li>
+                <a href="/categories/<%= category.category_id %>"
+                  ><%= category.category_name %></a
+                >
+              </li>
               <% }) %> <% } else { %>
               <li>No categories available.</li>
               <% } %>

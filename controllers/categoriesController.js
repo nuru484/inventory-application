@@ -30,8 +30,24 @@ const addCategoryPost = async (req, res) => {
   }
 };
 
+const categoryDetailGet = async (req, res) => {
+  const categoryId = req.params.id;
+
+  console.log(`id: ${categoryId}`);
+
+  try {
+    const category = await db.getCategoryById(categoryId);
+    console.log(category);
+    res.render('categoryDetails', { category: category });
+  } catch (error) {
+    console.error('Error fetching category details:', error);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports = {
   categoriesGet,
   addCategoryGet,
   addCategoryPost,
+  categoryDetailGet,
 };

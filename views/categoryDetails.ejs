@@ -1,0 +1,29 @@
+<!-- views/product-details.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="/styles/details.css" />
+    <title><%= category.category_name %> Details</title>
+  </head>
+  <body>
+    <div class="details-container">
+      <h1>Category Detail</h1>
+      <div class="product-info">
+        <p><strong>Category Name:</strong> <%= category.category_name %></p>
+        <p><strong> Category ID:</strong> <%= category.category_id %></p>
+      </div>
+      <div class="actions">
+        <a href="/">Back to Dashboard</a>
+        <a href="/categories/update-categories/<%=category.category_id  %>"
+          >Update Category</a
+        >
+        <a href="/categories/delete/<%=category.category_id %>"
+          >Delete Category</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

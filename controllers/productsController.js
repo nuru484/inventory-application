@@ -29,18 +29,10 @@ const addProductGet = (req, res) => {
 
 const addProductPost = async (req, res) => {
   try {
-    const {
-      product_id,
-      name,
-      description,
-      price,
-      quantity,
-      categoryId,
-      supplierId,
-    } = req.body;
+    const { name, description, price, quantity, categoryId, supplierId } =
+      req.body;
 
     await db.addProduct(
-      product_id,
       name,
       description,
       price,
@@ -94,7 +86,7 @@ const updateProductsPost = async (req, res) => {
       supplierId
     );
 
-    res.redirect('/');
+    res.redirect(`/products/${product_id}`);
   } catch (error) {
     console.error('Error updating product', error);
     res.status(500).send('Internal Server Error');

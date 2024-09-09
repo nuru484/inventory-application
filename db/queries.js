@@ -185,6 +185,19 @@ const getAllCategories = async () => {
   }
 };
 
+async function getCategoryById(id) {
+  try {
+    const { rows } = await pool.query(
+      'SELECT * FROM categories WHERE category_id = $1',
+      [id]
+    );
+    return rows[0];
+  } catch (err) {
+    console.error('Error fetching category', err.stack);
+    throw err;
+  }
+}
+
 const getCategoryBySearch = async (categoryName = '') => {
   try {
     // Correct the query to use SELECT * to get all columns
@@ -252,6 +265,7 @@ module.exports = {
 
   // Category queries
   getAllCategories,
+  getCategoryById,
   getCategoryBySearch,
   addCategory,
   updateCategory,
