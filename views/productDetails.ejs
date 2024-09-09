@@ -1,0 +1,25 @@
+<!-- views/product-details.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <title><%= product.name %> Details</title>
+  </head>
+  <body>
+    <div class="product-details-container">
+      <h1>Product Details</h1>
+      <div class="product-info">
+        <p><strong>Name:</strong> <%= product.name %></p>
+        <p><strong>Description:</strong> <%= product.description %></p>
+        <p><strong>Price:</strong> $<%= product.price %></p>
+        <p><strong>Quantity:</strong> <%= product.quantity %> units</p>
+        <p><strong>Category:</strong> <%= product.category_id %></p>
+        <p><strong>Supplier:</strong> <%= product.supplier_id %></p>
+      </div>
+
+      <a href="/">Back to Dashboard</a>
+    </div>
+  </body>
+</html>

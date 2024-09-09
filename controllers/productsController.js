@@ -1,5 +1,29 @@
 const db = require('../db/queries');
 
+const allProductsGet = async (req, res) => {
+  try {
+    const products = await db.getAllProducts();
+
+    res.render('allProducts', { products: products });
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+    res.status(500).send('Server Error');
+  }
+};
+
+const productDetailGet = async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    const product = await db.getProductById(productId);
+
+    res.render('productDetails', { product: product });
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+    res.status(500).send('Server Error');
+  }
+};
+
 const addProductGet = (req, res) => {
   res.render('productForm', { title: 'Product Form' });
 };
@@ -77,6 +101,8 @@ const deleteProductByIdPost = async (req, res) => {
 };
 
 module.exports = {
+  allProductsGet,
+  productDetailGet,
   addProductGet,
   addProductPost,
   updateProductGet,
