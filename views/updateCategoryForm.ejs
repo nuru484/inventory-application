@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/formStyles.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <form action="/categories/update/:id" method="POST">
+      <!-- Hidden field to capture category ID -->
+      <input
+        type="hidden"
+        name="categoryId"
+        id="categoryId"
+        value="<%= category.category_id %>"
+      />
+
+      <label for="category_name">Category Name:</label>
+      <input
+        type="text"
+        name="categoryName"
+        id="categoryName"
+        value="<%= category.category_name %>"
+        required
+      />
+
+      <button type="submit">Update Category</button>
+    </form>
+  </body>
+</html>

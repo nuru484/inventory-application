@@ -45,9 +45,40 @@ const categoryDetailGet = async (req, res) => {
   }
 };
 
+const updateCategoryGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    const category = await db.getCategoryById(id);
+    res.render('updateCategoryForm', {
+      title: 'Category Update Form',
+      category: category,
+    });
+  } catch (error) {
+    console.error('Error fetching product for update:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+const updateCategoryPost = async (req, res) => {
+  try {
+    const { categoryId, categoryName } = req.body;
+
+    await db.updateCategory(categoryId, categoryName);
+
+    res.redirect(`/categories/${categoryId}`);
+  } catch (error) {
+    console.error('Error updating category', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 module.exports = {
   categoriesGet,
   addCategoryGet,
   addCategoryPost,
   categoryDetailGet,
+  updateCategoryGet,
+  updateCategoryPost,
 };
