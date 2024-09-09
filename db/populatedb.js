@@ -52,25 +52,27 @@ INSERT INTO products (name, description, price, quantity, category_id, supplier_
 ('Milk', 'Whole milk', 1.20, 50, 3, 3),
 ('Orange Juice', '100% pure orange juice', 2.00, 30, 4, 4);`;
 
-(async () => {
+async function initializeDatabase() {
   try {
+    console.log('Initializing the database...');
+
     // Create tables
     await pool.query(createCategoriesTableSQL);
     await pool.query(createSuppliersTableSQL);
     await pool.query(createProductsTableSQL);
 
-    console.log('Tables created or already exist.');
+    console.log('Tables created successfully.');
 
-    // Insert data
+    // Insert initial data
     await pool.query(insertCategoriesSQL);
     await pool.query(insertSuppliersSQL);
     await pool.query(insertProductsSQL);
 
-    console.log('Database populated successfully.');
+    console.log('Initial data inserted successfully.');
   } catch (err) {
-    console.error('Error populating database:', err);
-  } finally {
-    // Close the pool
-    await pool.end();
+    console.error('Error during database initialization:', err);
+    throw err;
   }
-})();
+}
+
+module.exports = initializeDatabase;
