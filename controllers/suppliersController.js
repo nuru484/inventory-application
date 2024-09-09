@@ -70,6 +70,22 @@ const updateSupplierPost = async (req, res) => {
   }
 };
 
+const deleteSupplierByIdGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || isNaN(id)) {
+      return res.status(400).send('Invalid Supplier ID');
+    }
+
+    await db.deleteSupplierById(id);
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error Deleting Supplier', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 module.exports = {
   suppliersGet,
   addSupplierGet,
@@ -77,4 +93,5 @@ module.exports = {
   supplierDetailGet,
   updateSupplierGet,
   updateSupplierPost,
+  deleteSupplierByIdGet,
 };
