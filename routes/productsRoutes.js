@@ -13,6 +13,6 @@ productsRouter.post(
   productsControllers.updateProductsPost
 );
 
-productsRouter.get('/delete/:id', productsControllers.deleteProductByIdPost);
+productsRouter.get('/delete/:id', productsControllers.deleteProductByIdGet);
 
 module.exports = productsRouter;

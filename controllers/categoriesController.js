@@ -74,6 +74,22 @@ const updateCategoryPost = async (req, res) => {
   }
 };
 
+const deleteCategoryByIdGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || isNaN(id)) {
+      return res.status(400).send('Invalid Category ID');
+    }
+
+    await db.deleteCategoryById(id);
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error Deleting Category', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 module.exports = {
   categoriesGet,
   addCategoryGet,
@@ -81,4 +97,5 @@ module.exports = {
   categoryDetailGet,
   updateCategoryGet,
   updateCategoryPost,
+  deleteCategoryByIdGet,
 };

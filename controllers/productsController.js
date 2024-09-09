@@ -93,7 +93,7 @@ const updateProductsPost = async (req, res) => {
   }
 };
 
-const deleteProductByIdPost = async (req, res) => {
+const deleteProductByIdGet = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -116,5 +116,5 @@ module.exports = {
   addProductPost,
   updateProductGet,
   updateProductsPost,
-  deleteProductByIdPost,
+  deleteProductByIdGet,
 };

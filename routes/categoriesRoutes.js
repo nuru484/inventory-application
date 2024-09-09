@@ -9,5 +9,9 @@ categoriesRouter.post('/add-category', categoriesControllers.addCategoryPost);
 categoriesRouter.get('/:id', categoriesControllers.categoryDetailGet);
 categoriesRouter.get('/update/:id', categoriesControllers.updateCategoryGet);
 categoriesRouter.post('/update/:id', categoriesControllers.updateCategoryPost);
+categoriesRouter.get(
+  '/delete/:id',
+  categoriesControllers.deleteCategoryByIdGet
+);
 
 module.exports = categoriesRouter;
