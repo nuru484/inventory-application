@@ -27,30 +27,33 @@ CREATE TABLE IF NOT EXISTS products (
   supplier_id INT REFERENCES suppliers(supplier_id) ON DELETE CASCADE
 );`;
 
-// Insert Categories
+// Insert Categories with ON CONFLICT to avoid duplicates
 const insertCategoriesSQL = `
 INSERT INTO categories (category_name) VALUES
 ('Fruits'),
 ('Vegetables'),
 ('Dairy'),
-('Beverages');`;
+('Beverages')
+ON CONFLICT (category_name) DO NOTHING;`;
 
-// Insert Suppliers
+// Insert Suppliers with ON CONFLICT to avoid duplicates
 const insertSuppliersSQL = `
 INSERT INTO suppliers (supplier_name, contact_info) VALUES
 ('Fresh Farms', '123 Farm Road, Cityville'),
 ('Green Grocers', '456 Veggie Lane, Townsville'),
 ('Dairy World', '789 Milk Street, Metropolis'),
-('Beverage Co.', '101 Drink Ave, Suburbia');`;
+('Beverage Co.', '101 Drink Ave, Suburbia')
+ON CONFLICT (supplier_name) DO NOTHING;`;
 
-// Insert Products
+// Insert Products with ON CONFLICT to avoid duplicates
 const insertProductsSQL = `
 INSERT INTO products (name, description, price, quantity, category_id, supplier_id) VALUES
 ('Apple', 'Fresh red apples', 0.50, 100, 1, 1),
 ('Banana', 'Ripe bananas', 0.30, 150, 1, 1),
 ('Carrot', 'Organic carrots', 0.20, 200, 2, 2),
 ('Milk', 'Whole milk', 1.20, 50, 3, 3),
-('Orange Juice', '100% pure orange juice', 2.00, 30, 4, 4);`;
+('Orange Juice', '100% pure orange juice', 2.00, 30, 4, 4)
+ON CONFLICT (name) DO NOTHING;`;
 
 async function initializeDatabase() {
   try {
