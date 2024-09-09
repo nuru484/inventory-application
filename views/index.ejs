@@ -50,7 +50,11 @@
             <ul id="suppliers-list" class="hidden">
               <% if (suppliers.length > 0) { %> <%
               suppliers.forEach(function(supplier) { %>
-              <li><%= supplier.supplier_name %></li>
+              <li>
+                <a href="/suppliers/<%= supplier.supplier_id %>"
+                  ><%= supplier.supplier_name %></a
+                >
+              </li>
               <% }) %> <% } else { %>
               <li>No suppliers available.</li>
               <% } %>

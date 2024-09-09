@@ -1,0 +1,30 @@
+<!-- views/product-details.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="/styles/details.css" />
+    <title><%= supplier.supplier_name %> Details</title>
+  </head>
+  <body>
+    <div class="details-container">
+      <h1>Supplier Detail</h1>
+      <div class="product-info">
+        <p><strong> Supplier ID:</strong> <%= supplier.supplier_id %></p>
+        <p><strong>Supplier Name:</strong> <%= supplier.supplier_name %></p>
+        <p><strong>Supplier Contact:</strong> <%= supplier.contact_info %></p>
+      </div>
+      <div class="actions">
+        <a href="/">Back to Dashboard</a>
+        <a href="/suppliers/update-suppliers/<%=supplier.supplier_id  %>"
+          >Update Category</a
+        >
+        <a href="/categories/delete/<%=supplier.supplier_id %>"
+          >Delete Supplier</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

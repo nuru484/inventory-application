@@ -29,8 +29,21 @@ const addSupplierPost = async (req, res) => {
   }
 };
 
+const supplierDetailGet = async (req, res) => {
+  const supplierId = req.params.id;
+
+  try {
+    const supplier = await db.getSupplierById(supplierId);
+    res.render('supplierDetails', { supplier: supplier });
+  } catch (error) {
+    console.error('Error fetching supplier details:', error);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports = {
   suppliersGet,
   addSupplierGet,
   addSupplierPost,
+  supplierDetailGet,
 };
