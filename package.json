@@ -5,7 +5,7 @@
   "scripts": {
     "db": "node db/populatedb.js",
     "start": "node app",
-    "dev": "node --watch --env-file='.env' app"
+    // "dev": "node --watch --env-file='.env' app"
   },
   "author": "",
   "license": "ISC",
