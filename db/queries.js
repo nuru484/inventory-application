@@ -42,7 +42,7 @@ async function addProduct(
 }
 
 async function updateProduct(
-  productId,
+  product_id,
   name,
   description,
   price,
@@ -62,8 +62,9 @@ async function updateProduct(
       quantity,
       categoryId,
       supplierId,
-      productId,
+      product_id,
     ];
+
     await pool.query(query, values);
     console.log('Product updated successfully.');
   } catch (err) {

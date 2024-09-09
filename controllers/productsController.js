@@ -16,7 +16,6 @@ const productDetailGet = async (req, res) => {
 
   try {
     const product = await db.getProductById(productId);
-
     res.render('productDetails', { product: product });
   } catch (error) {
     console.error('Error fetching product details:', error);
@@ -30,10 +29,18 @@ const addProductGet = (req, res) => {
 
 const addProductPost = async (req, res) => {
   try {
-    const { name, description, price, quantity, categoryId, supplierId } =
-      req.body;
+    const {
+      product_id,
+      name,
+      description,
+      price,
+      quantity,
+      categoryId,
+      supplierId,
+    } = req.body;
 
     await db.addProduct(
+      product_id,
       name,
       description,
       price,
@@ -52,6 +59,8 @@ const addProductPost = async (req, res) => {
 const updateProductGet = async (req, res) => {
   try {
     const { id } = req.params;
+
+    console.log(id);
     const product = await db.getProductById(id);
     res.render('updateProductForm', {
       title: 'Product Update Form',
@@ -65,10 +74,18 @@ const updateProductGet = async (req, res) => {
 
 const updateProductsPost = async (req, res) => {
   try {
-    const { name, description, price, quantity, categoryId, supplierId } =
-      req.body;
+    const {
+      product_id,
+      name,
+      description,
+      price,
+      quantity,
+      categoryId,
+      supplierId,
+    } = req.body;
 
     await db.updateProduct(
+      product_id,
       name,
       description,
       price,
@@ -86,7 +103,7 @@ const updateProductsPost = async (req, res) => {
 
 const deleteProductByIdPost = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     if (!id || isNaN(id)) {
       return res.status(400).send('Invalid product ID');
