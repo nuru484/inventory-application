@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "db": "node db/populatedb.js",
     "start": "node app",
     "dev": "node --watch --env-file='.env' app"
   },
