@@ -41,9 +41,40 @@ const supplierDetailGet = async (req, res) => {
   }
 };
 
+const updateSupplierGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    console.log(id);
+    const supplier = await db.getSupplierById(id);
+    res.render('updateSupplierForm', {
+      title: 'Supplier Update Form',
+      supplier: supplier,
+    });
+  } catch (error) {
+    console.error('Error fetching supplier for update:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+const updateSupplierPost = async (req, res) => {
+  try {
+    const { supplierId, supplierName, contactInfo } = req.body;
+
+    await db.updateSupplier(supplierId, supplierName, contactInfo);
+
+    res.redirect(`/suppliers/${supplierId}`);
+  } catch (error) {
+    console.error('Error updating supplier', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 module.exports = {
   suppliersGet,
   addSupplierGet,
   addSupplierPost,
   supplierDetailGet,
+  updateSupplierGet,
+  updateSupplierPost,
 };

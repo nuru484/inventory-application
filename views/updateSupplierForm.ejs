@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/formStyles.css" />
+    <title>Update Supplier</title>
+  </head>
+  <body>
+    <form action="/suppliers/update/:id" method="POST">
+      <!-- Hidden field to capture supplier ID -->
+      <input
+        type="hidden"
+        name="supplierId"
+        id="supplierId"
+        value="<%= supplier.supplier_id %>"
+      />
+
+      <label for="supplierName">Supplier Name:</label>
+      <input
+        type="text"
+        name="supplierName"
+        id="supplierName"
+        value="<%= supplier.supplier_name %>"
+        required
+      />
+      <br />
+
+      <label for="contactInfo">Contact Info:</label>
+      <textarea name="contactInfo" id="contactInfo" rows="4" required>
+<%= supplier.contact_info %></textarea
+      >
+      <br />
+
+      <button type="submit">Update Supplier</button>
+    </form>
+  </body>
+</html>
