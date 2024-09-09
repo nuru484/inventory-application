@@ -10,18 +10,27 @@ async function getAllProducts() {
   }
 }
 
-async function getProductById(id) {
+const getProductById = async (productId) => {
+  const query = `
+    SELECT p.product_id, p.name, p.description, p.price, p.quantity,
+           p.category_id, c.category_name, 
+           p.supplier_id, s.supplier_name
+    FROM products p
+    JOIN categories c ON p.category_id = c.category_id
+    JOIN suppliers s ON p.supplier_id = s.supplier_id
+    WHERE p.product_id = $1
+  `;
+
+  const values = [productId];
+
   try {
-    const { rows } = await pool.query(
-      'SELECT * FROM products WHERE product_id = $1',
-      [id]
-    );
-    return rows[0];
+    const result = await pool.query(query, values);
+    return result.rows[0];
   } catch (err) {
-    console.error('Error fetching product', err.stack);
+    console.error('Error fetching product by ID:', err);
     throw err;
   }
-}
+};
 
 async function addProduct(
   name,

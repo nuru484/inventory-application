@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/formStyles.css" />
-    <title><%=title %></title>
+    <title><%= title %></title>
   </head>
   <body>
     <form action="/products/add-product" method="POST">
@@ -29,16 +29,34 @@
       <input type="number" name="quantity" id="quantity" required />
       <br />
 
-      <label for="categoryId">Category ID:</label>
-      <input type="number" name="categoryId" id="categoryId" required />
+      <!-- Category Dropdown -->
+      <label for="categoryId">Category:</label>
+      <select name="categoryId" id="categoryId" required>
+        <option value="">Select a Category</option>
+        <% categories.forEach(category => { %>
+        <option value="<%= category.category_id %>">
+          <%= category.category_name %>
+        </option>
+        <% }); %>
+      </select>
       <br />
 
-      <label for="supplierId">Supplier ID:</label>
-      <input type="number" name="supplierId" id="supplierId" required />
+      <!-- Supplier Dropdown -->
+      <label for="supplierId">Supplier:</label>
+      <select name="supplierId" id="supplierId" required>
+        <option value="">Select a Supplier</option>
+        <% suppliers.forEach(supplier => { %>
+        <option value="<%= supplier.supplier_id %>">
+          <%= supplier.supplier_name %>
+        </option>
+        <% }); %>
+      </select>
       <br />
 
       <button type="submit">Add Product</button>
-      <button type="button"><a href="/">Back Home</a></button>
+      <button type="button">
+        <a href="/">Back Home</a>
+      </button>
     </form>
   </body>
 </html>

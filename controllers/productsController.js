@@ -16,15 +16,32 @@ const productDetailGet = async (req, res) => {
 
   try {
     const product = await db.getProductById(productId);
-    res.render('productDetails', { product: product });
+
+    res.render('productDetails', {
+      product: product,
+      categoryName: product.category_name,
+      supplierName: product.supplier_name,
+    });
   } catch (error) {
     console.error('Error fetching product details:', error);
     res.status(500).send('Server Error');
   }
 };
 
-const addProductGet = (req, res) => {
-  res.render('productForm', { title: 'Product Form' });
+const addProductGet = async (req, res) => {
+  try {
+    const categories = await db.getAllCategories();
+    const suppliers = await db.getAllSuppliers();
+
+    res.render('addProductForm', {
+      title: 'Add Product',
+      categories,
+      suppliers,
+    });
+  } catch (err) {
+    console.error('Error fetching categories or suppliers:', err);
+    res.status(500).send('Server Error');
+  }
 };
 
 const addProductPost = async (req, res) => {
@@ -52,11 +69,15 @@ const updateProductGet = async (req, res) => {
   try {
     const { id } = req.params;
 
-    console.log(id);
+    const categories = await db.getAllCategories();
+    const suppliers = await db.getAllSuppliers();
     const product = await db.getProductById(id);
+
     res.render('updateProductForm', {
       title: 'Product Update Form',
-      product: product,
+      product,
+      categories,
+      suppliers,
     });
   } catch (error) {
     console.error('Error fetching product for update:', error);

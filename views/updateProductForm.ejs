@@ -44,25 +44,26 @@
         value="<%= product.quantity %>"
       />
       <br />
-
-      <label for="categoryId">Category ID:</label>
-      <input
-        type="number"
-        name="categoryId"
-        id="categoryId"
-        required
-        value="<%= product.category_id %>"
-      />
+      <label for="categoryId">Category:</label>
+      <select name="categoryId" id="categoryId" required>
+        <option value="">Select a Category</option>
+        <% categories.forEach(category => { %>
+        <option value="<%= category.category_id %>">
+          <%= category.category_name %>
+        </option>
+        <% }); %>
+      </select>
       <br />
 
-      <label for="supplierId">Supplier ID:</label>
-      <input
-        type="number"
-        name="supplierId"
-        id="supplierId"
-        required
-        value="<%= product.supplier_id %>"
-      />
+      <label for="supplierId">Supplier:</label>
+      <select name="supplierId" id="supplierId" required>
+        <option value="">Select a Supplier</option>
+        <% suppliers.forEach(supplier => { %>
+        <option value="<%= supplier.supplier_id %>">
+          <%= supplier.supplier_name %>
+        </option>
+        <% }); %>
+      </select>
       <br />
 
       <label for="product_id">Product ID:</label>
