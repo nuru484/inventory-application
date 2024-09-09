@@ -27,12 +27,19 @@ body {
 
 .nav-bar ul {
   list-style: none;
-  padding: 0;
+  padding: 0 10px 10px 20px;
 }
 
-.nav-bar ul li,
+.nav-bar > ul > li {
+  margin: 40px 0;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
 .nav-bar ul li a {
-  margin: 15px 0;
+  /* margin: 20px 0; */
   color: #ccc;
   text-decoration: none;
   font-size: 1.1rem;
@@ -46,8 +53,15 @@ body {
 
 .nav-bar ul li ul li {
   color: white;
-  padding: 5px;
+  padding: 15px 0 0 15px;
   cursor: pointer;
+}
+
+.logo-container {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  margin: 20px 10px 10px 20px;
 }
 
 /* Main Content */
@@ -148,6 +162,8 @@ body {
 #products-list,
 #categories-list,
 #suppliers-list {
-  max-height: 160px;
+  height: 110px;
   overflow-y: auto;
+  background-color: #364458;
+  margin-right: 5px 0;
 }
