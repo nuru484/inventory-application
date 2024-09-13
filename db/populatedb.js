@@ -1,13 +1,12 @@
 const pool = require('./pool');
 
-// Categories Table
+// Create Tables
 const createCategoriesTableSQL = `
 CREATE TABLE IF NOT EXISTS categories (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(100) NOT NULL UNIQUE
 );`;
 
-// Suppliers Table
 const createSuppliersTableSQL = `
 CREATE TABLE IF NOT EXISTS suppliers (
     supplier_id SERIAL PRIMARY KEY,
@@ -15,7 +14,6 @@ CREATE TABLE IF NOT EXISTS suppliers (
     contact_info TEXT
 );`;
 
-// Products Table
 const createProductsTableSQL = `
 CREATE TABLE IF NOT EXISTS products (
   product_id SERIAL PRIMARY KEY,
@@ -27,7 +25,7 @@ CREATE TABLE IF NOT EXISTS products (
   supplier_id INT REFERENCES suppliers(supplier_id) ON DELETE CASCADE
 );`;
 
-// Insert Categories with ON CONFLICT to avoid duplicates
+// Insert initial data
 const insertCategoriesSQL = `
 INSERT INTO categories (category_name) VALUES
 ('Fruits'),
@@ -36,7 +34,6 @@ INSERT INTO categories (category_name) VALUES
 ('Beverages')
 ON CONFLICT (category_name) DO NOTHING;`;
 
-// Insert Suppliers with ON CONFLICT to avoid duplicates
 const insertSuppliersSQL = `
 INSERT INTO suppliers (supplier_name, contact_info) VALUES
 ('Fresh Farms', '123 Farm Road, Cityville'),
@@ -45,7 +42,6 @@ INSERT INTO suppliers (supplier_name, contact_info) VALUES
 ('Beverage Co.', '101 Drink Ave, Suburbia')
 ON CONFLICT (supplier_name) DO NOTHING;`;
 
-// Insert Products with ON CONFLICT to avoid duplicates
 const insertProductsSQL = `
 INSERT INTO products (name, description, price, quantity, category_id, supplier_id) VALUES
 ('Apple', 'Fresh red apples', 0.50, 100, 1, 1),
@@ -54,6 +50,22 @@ INSERT INTO products (name, description, price, quantity, category_id, supplier_
 ('Milk', 'Whole milk', 1.20, 50, 3, 3),
 ('Orange Juice', '100% pure orange juice', 2.00, 30, 4, 4)
 ON CONFLICT (name) DO NOTHING;`;
+
+// Helper function to insert data if foreign keys exist
+async function insertIfForeignKeyExists(query, values) {
+  try {
+    await pool.query(query, values);
+  } catch (err) {
+    if (err.code === '23503') {
+      // Foreign key violation code
+      console.warn(
+        'Foreign key violation: Data not inserted due to missing referenced records.'
+      );
+    } else {
+      throw err; // Rethrow if it's not a foreign key issue
+    }
+  }
+}
 
 async function initializeDatabase() {
   try {
@@ -69,9 +81,13 @@ async function initializeDatabase() {
     // Insert initial data
     await pool.query(insertCategoriesSQL);
     await pool.query(insertSuppliersSQL);
-    await pool.query(insertProductsSQL);
 
-    console.log('Initial data inserted successfully.');
+    console.log('Categories and Suppliers inserted successfully.');
+
+    // Insert products, handling foreign key violations gracefully
+    await insertIfForeignKeyExists(insertProductsSQL);
+
+    console.log('Products data handled successfully.');
   } catch (err) {
     console.error('Error during database initialization:', err);
     throw err;
